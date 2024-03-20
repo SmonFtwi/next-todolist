@@ -3,14 +3,29 @@ import { RootState } from '@/redux/store'; // Adjust the path as per your projec
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { useDispatch } from 'react-redux';
+import { setUpdatePopup } from "@/redux/features/popup";
+import {deleteTask} from '@/redux/features/todos';
 
-import { useState } from 'react';
-import { Task } from '@/redux/features/todos';
+
 
 export default function Todolist() {
+    
     // Select the tasks array from the Redux store
-    const tasks = useSelector((state: RootState) => state.taskManager.value);
-    const dispatch = useDispatch();
+  const tasks = useSelector((state: RootState) => state.taskManager.value);
+  const dispatch = useDispatch();
+   const updatePopup = useSelector((state: RootState) => state.popupTraker.updatePopup); // Get the addPopup state from Redux
+  
+   const selectedTask = useSelector((state: RootState) => state.selectedTask.selectedTask);
+
+  const handleupdateTodoListClick = () => {
+    // Dispatch the action to toggle the addPopup state
+    dispatch(setUpdatePopup(!updatePopup));
+  };
+ 
+  const handleDeleteTodoListClick = (taskId: number) => {
+    dispatch(deleteTask(taskId));
+    
+  };
 
     
 
@@ -28,8 +43,11 @@ export default function Todolist() {
                         <p className='flex-grow'>{task.Tasktitle}</p>
                         <p className='flex-initial w-32 '>{task.dueDate}</p>
                         <p className=' flex-end mr-2'
-                        ><ModeEditIcon className='w-32' /></p>
-                        <p className= 'flex-end ml-2'><DeleteIcon className='w-32' /></p>
+                        ><ModeEditIcon onClick={handleupdateTodoListClick}
+                        className='w-32' /></p>
+                        <p className= 'flex-end ml-2'>
+                        <DeleteIcon  onClick={() => handleDeleteTodoListClick(task.id)}
+                           className='w-32' /></p>
                     </li>
                 ))}
             </ul>

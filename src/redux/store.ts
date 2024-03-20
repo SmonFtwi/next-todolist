@@ -1,13 +1,16 @@
 import {configureStore} from "@reduxjs/toolkit"
 import taskManager from './features/todos'
 import popupTraker from './features/popup'
+import selectedTask from './features/selectedTask'
 
 
 export const store = configureStore ({
 
     reducer: {
         taskManager,
-        popupTraker
+        popupTraker,
+        selectedTask
+
         
 
     }
