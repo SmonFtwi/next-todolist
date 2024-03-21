@@ -22,14 +22,11 @@ export default function Todolist() {
     dispatch(setUpdatePopup(!updatePopup));
   };
  
-  const handleDeleteTodoListClick = (taskId: number) => {
+  const handleDeleteTodoListClick = (taskId : number | string) => {
+    console.log('Deleting task with ID:', taskId);
     dispatch(deleteTask(taskId));
     
   };
-
-    
-
-    
 
     return (
         <div className='fixed  w-full h-ful p-4 z-0'>
@@ -40,12 +37,12 @@ export default function Todolist() {
                     <li  className=' flex  rounded-md shadow-md  p-2 m-2'
                     key={task.id}>
                         
-                        <p className='flex-grow'>{task.Tasktitle}</p>
-                        <p className='flex-initial w-32 '>{task.dueDate}</p>
-                        <p className=' flex-end mr-2'
+                        <p className=' flex-initial w-1/2'>{task.Tasktitle}</p>
+                        <p className=' flex-initial  w-1/4'>{task.dueDate}</p>
+                        <p className=' flex-intial w-1/6  '
                         ><ModeEditIcon onClick={handleupdateTodoListClick}
                         className='w-32' /></p>
-                        <p className= 'flex-end ml-2'>
+                        <p className= ' flex-initial w-1/6 '>
                         <DeleteIcon  onClick={() => handleDeleteTodoListClick(task.id)}
                            className='w-32' /></p>
                     </li>

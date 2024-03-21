@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "@/redux/features/todos"; // Importing addTask action
+import { addTask ,Task} from "@/redux/features/todos"; // Importing addTask action
 import { AppDispatch, RootState } from "@/redux/store";
 import { useState } from "react";
 import { setAddPopup } from "@/redux/features/popup";
@@ -34,7 +34,7 @@ export default function Addform({ addPopupActive }: AddFormProps) {
         ...newTodo,
         id: newId,
       };
-      dispatch(addTask (newTodo)); // Dispatching addTodo action with new todo item
+      dispatch(addTask(newTodoWithId));// Dispatching addTodo action with new todo item
       // Reset form fields after submitting
       setNewTodo({
           id: 0, // You might want to generate a unique ID more reliably

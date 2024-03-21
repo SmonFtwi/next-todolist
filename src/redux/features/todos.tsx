@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define the type for a single task
 export type Task = {
-    id: number;
+    id: string | number;
     Tasktitle: string;
     dueDate: string;
     complete: boolean; // Add the complete property
@@ -22,11 +22,15 @@ const tasksSlice = createSlice({
         addTask: (state, action: PayloadAction<Task>) => {
             state.value.push(action.payload);
         },
-        deleteTask: (state, action: PayloadAction<number>) => {
-            // Filter out the task with the specified id
-            state.value = state.value.filter(task => task.id !== action.payload);
-            return state;
+        deleteTask: (state, action: PayloadAction<number | string>) => {
+            console.log('Deleting task with ID:', action.payload);
+            // Filter out the task with the specified id and return a new state object
+            return {
+              ...state,
+              value: state.value.filter(task => task.id !== action.payload)
+            };
           },
+          
         // Update the updateTask action to accept both the task id and the updated task
         updateTask: (state, action: PayloadAction<{ id: number; updatedTask: Task }>) => {
           const { id, updatedTask } = action.payload;
